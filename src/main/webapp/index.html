@@ -1,0 +1,282 @@
+<html lang="en">
+    <head>
+    <title>Ventas</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">    
+    <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script-->    
+    <script src="js/controller.js"></script>
+    <script src="js/jquery-3.2.1.js"></script>
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <body>
+        <header>
+            <div class="container">
+                <img src="http://www.ideasabc.com.co/modules/blockbanner/img/451ff0f135a61a509e3aaef6711f3a09.png" class="img-fluid" alt="Responsive image">
+            </div>
+            <div class = "container-fluid">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Tickes <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Facturas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Pedidos</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>  
+            </div>            
+        </header>
+            <div class="container">
+                <form>
+                    <div class="row" style = "margin-top: 30px">
+                        <input class="col-10 form-control-lg" type="text" placeholder="Search" aria-label="Search" id="txtBuscar" autofocus>
+                        <button class="col-2 btn btn-success" type="button" data-toggle="modal" data-target="#buscarProdutos"
+                         onclick="listarProductos();">Search</button>
+                    </div>
+                </form>
+                <div style = "margin-top: 30px">
+                    <form action="">
+                        <div class="row">
+                            <label class="col-1 col-form-label" for="Codigo">Codigo</label>
+                            <input type="text" class="col-2 form-control" id="txtCodigo" > 
+                            <label class="col-1 col-form-label" for="Descripción">Descripción</label>
+                            <input type="text" class="col-3 form-control" id="txtDescripcion" > 
+                            <label class="col-1 col-form-label" for="Cantidad">Cantidad</label>
+                            <input type="number" class="col-1 form-control" id="txtCantidad">
+                            <label class="col-1 col-form-label" for="Valor">Valor</label>
+                            <input type="number" class="col-1 form-control" id="txtValor">
+                            <input type="button" class=" col-1 form-control button btn-warning" value="Agregar" onclick="addRecord()">
+                        </div>
+                    </form>
+                    <h1 class="text-center">Ticket # 1</h1>                    
+                    <table class= "table table-bordered table-hover" id= "TableProducts">
+                        <thead class="bg-success">
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>Código</th>
+                                <th>Descripción</th>
+                                <th>Cantidad</th>
+                                <th>Valor/U</th>
+                                <th>Subtotal</th>
+                                <th>Acciones</th>
+                            </tr>  
+                        </thead>
+                        <tbody id="TicketsProductsList">                                                              
+                        </tbody>  
+                        <tfoot>
+                            <tr>
+                                <td colspan=6>
+                                    <h3 class="d-flex justify-content-center">Total a pagar</h3>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" 
+                                            data-target="#datosDePago" onclick="document.getElementById('valorEntregado').focus;">Pagar
+                                        <span class="badge badge-light">
+                                            <span id="txtTotal">0</span>
+                                        </span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>                    
+    <!-- Modal buscar productos-->
+    <div class="modal" id="buscarProdutos" tabindex="-1" role="dialog" aria-labelledby="buscarProdutosLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="buscarProdutosLabel">Buscar Productos</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row d-flex justify-content-center">
+                                    <table id="myTable" class="table table-hover table-bordered">
+                                        <thead class="bg-success">                                            
+                                            <tr>
+                                                <th>Codigo</th>
+                                                <th>Descripcion</th>
+                                                <th>Costo</th>
+                                                <th>Categoria</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="listProducts">
+                                        </tbody>
+                                    </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary">Seleccionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="modal" id="buscarProdutos" tabindex="-1" role="dialog" aria-labelledby="buscarProdutosLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="buscarProdutosLabel">Buscar Productos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Seleccionar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal datos de pago -->
+    <div class="modal" id="datosDePago" tabindex="-1" role="dialog" aria-labelledby="datosDePagoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="datosDePagoLabel">Realizar Pago</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class = "container">
+                        <div id="accordion" role="tablist">
+                            <div class="card">
+                                <div class="card-header" role="tab" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            Datos del pago
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="card-body">
+                                        <div class="row">
+                                        <!-- Valor a pagar -->
+                                            <div class="col-6">
+                                                <span>Valor a Pagar</span>
+                                            </div>
+                                                <div class="col-6 d-flex justify-content-center">
+                                                    <span id="valoraPagar">0</span>
+                                                </div>                
+                                                <!-- Valor entregado -->            
+                                                <div class="col-6">
+                                                    <span>Valor entregado</span>
+                                                </div>
+                                                <div class="col-6 d-flex justify-content-center">
+                                                    <input type="text" id= "valorEntregado" onkeyup="calcularSaldo();">
+                                                </div>  
+                                                <!-- Valor devuelto -->
+                                                <div class="col-6">
+                                                    <span>Valor devuelto</span>
+                                                </div>
+                                                <div class="col-6 d-flex justify-content-center">
+                                                    <span id="valorDevuelto">0</span>
+                                                </div> 
+                                                <!--Saldo -->
+                                                <div class="col-6">
+                                                    <span>Saldo</span>
+                                                </div>
+                                                <div class="col-6 d-flex justify-content-center">
+                                                    <span id="saldo">0</span>
+                                                </div>                                                  
+                                            </div>
+                                        </div>
+                                    <div class="card">
+                                        <div class="card-header" role="tab" id="headingTwo">
+                                            <h5 class="mb-0">
+                                                <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                    Datos del cliente
+                                                </a>
+                                            </h5>
+                                        </div>
+                                        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <!-- Identificación -->
+                                                    <div class="col-4 form-control-lg">
+                                                        <span>Identificación</span>
+                                                    </div>
+                                                    <div class="col-8 form-control-lg d-flex justify-content-center">
+                                                        <input type="number" id= "idCliete" >
+                                                    </div>                                                                
+                                                    <!-- Nombre -->
+                                                    <div class="col-4 form-control-lg ">
+                                                        <span>Nombre</span>
+                                                    </div>
+                                                    <div class="col-8 form-control-lg d-flex justify-content-center">
+                                                        <input type="text" id= "nombreCliente" >
+                                                    </div>                                                                
+                                                    <!-- Teléfono -->
+                                                    <div class="col-4 form-control-lg ">
+                                                        <span>Teléfono</span>
+                                                    </div>
+                                                    <div class="col-8 form-control-lg d-flex justify-content-center">
+                                                        <input type="tel" id="telCliente">
+                                                    </div>                                                                
+                                                    <!-- Correo -->
+                                                    <div class="col-4 form-control-lg ">
+                                                        <span>Correo</span>
+                                                    </div>
+                                                    <div class="col-8 form-control-lg d-flex justify-content-center">
+                                                        <input type="email" id="correoCliente">
+                                                    </div>                                                                
+                                                    <!-- Dirección -->
+                                                    <div class="col-4 form-control-lg ">
+                                                        <span>Dirección</span>
+                                                    </div>
+                                                    <div class="col-8 form-control-lg d-flex justify-content-center">
+                                                        <input type="text" id="direccionCliente"></span>
+                                                    </div>                                                                
+                                                    <!-- Actualizar -->
+                                                    <div class="col-6">
+                                                        <span></span>
+                                                    </div>
+                                                    <div class="col-6 d-flex justify-content-center">
+                                                        <input type="button" value="Actualizar" class="btn btn-success" id="btnActualizar"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success">Realizar Pago</button>
+                    <button type="button" class="btn btn-warning">Realizar Abono</button>
+                </div>
+            </div>
+        </div>
+    </div>        
+<footer>
+</footer>
+        </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    </body>
+<html>
+            
