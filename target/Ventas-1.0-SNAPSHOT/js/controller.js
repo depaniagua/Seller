@@ -45,7 +45,9 @@ function addRecord(){
     }
 
     function selectRow(codigo, costo){
-alert(codigo);
+        document.getElementById("txtCodigo").value = codigo;
+        document.getElementById("txtValor").value = costo;
+        $("#btnCancelar").trigger('click');
     }
 
     function successExcecute(response){
@@ -57,7 +59,7 @@ alert(codigo);
     }
 
     function listarProductos () {
-        var url = "http://localhost:8080/Ventas/resources/service/";
+        var url = "http://localhost:8080/Seller/resources/service/";
         var row = "";
         var parametros = [];
        /* $.ajax({
@@ -72,17 +74,17 @@ alert(codigo);
         $.getJSON(url, function( data ){
             $.each(data, function(i, item){
                 parametros[0]= item.codigo;
-                parametros[1]= item.descripcion;
+                parametros[1]= "'" + item.descripcion + "'";
                 parametros[2]= item.costo;
-                parametros[3]= item.codigo;
+                parametros[3]= "'" +item.categoria + "'";
                 
                row = row + "<tr>" + 
                               "<td>" + item.codigo + "</td>"+
                               "<td>" + item.descripcion + "</td>" + 
                               "<td>" + item.costo + "</td>" + 
                               "<td>" + item.categoria + "</td>" +
-                              "<td><input type='button' value= 'Seleccionar' class='btn btn-primary btn-round' onclick= 'selectRow(" +
-                              item.codigo + ", " + item.costo +  ");'</td></tr>"
+                              "<td><input type='button' value= 'Seleccionar' class='btn btn-primary btn-round' \n\
+                            onclick= 'selectRow(" + item.codigo + "," + item.costo +  ");'</td></tr>"
             })
             $("#listProducts").html(row);
         }).done(function() {
