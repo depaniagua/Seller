@@ -59,7 +59,7 @@ function addRecord(){
     }
 
     function listarProductos () {
-        var url = "http://localhost:8080/Seller/resources/service/";
+        var url = "http://localhost:8080/Ventas/resources/service/";
         var row = "";
         var parametros = [];
        /* $.ajax({
@@ -73,18 +73,18 @@ function addRecord(){
          */
         $.getJSON(url, function( data ){
             $.each(data, function(i, item){
-                parametros[0]= item.codigo;
-                parametros[1]= "'" + item.descripcion + "'";
-                parametros[2]= item.costo;
-                parametros[3]= "'" +item.categoria + "'";
+                parametros[0]= item.codigo_producto;
+                parametros[1]= "'" + item.descrip_producto + "'";
+                parametros[2]= item.precio1;
+                parametros[3]= "'" +item.categoria_id + "'";
                 
                row = row + "<tr>" + 
-                              "<td>" + item.codigo + "</td>"+
-                              "<td>" + item.descripcion + "</td>" + 
-                              "<td>" + item.costo + "</td>" + 
-                              "<td>" + item.categoria + "</td>" +
+                              "<td>" + item.codigo_producto + "</td>"+
+                              "<td>" + item.descrip_producto + "</td>" + 
+                              "<td>" + item.precio1 + "</td>" + 
+                              "<td>" + item.categoria_id + "</td>" +
                               "<td><input type='button' value= 'Seleccionar' class='btn btn-primary btn-round' \n\
-                            onclick= 'selectRow(" + item.codigo + "," + item.costo +  ");'</td></tr>"
+                            onclick= 'selectRow(" + item.codigo_producto + "," + item.precio1 +  ");'</td></tr>"
             })
             $("#listProducts").html(row);
         }).done(function() {
