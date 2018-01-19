@@ -1,3 +1,11 @@
+var ajax = new XMLHttpRequest();
+ajax.open("GET", "http://localhost:8080/Ventas/resources/service/", true);
+ajax.onload = function() {
+	var list = JSON.parse(ajax.responseText).map(function(i) { return i.descrip_producto; });
+	new Awesomplete(document.querySelector("#ajax-example input"),{ list: list });
+};
+ajax.send();
+
 var totalPagar = 0;
 var numRecord =1;
 var productos = {};
