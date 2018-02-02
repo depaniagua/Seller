@@ -5,11 +5,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!--link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">    
-    <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script-->    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
     <script src="js/controller.js"></script>
-    <script src="js/jquery-3.2.1.js"></script>
+    <!--script src="js/jquery-3.2.1.js"></script-->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="vendor/typeahead/typeahead.css" rel="stylesheet" type="text/css">
 
     <body>
         <header>
@@ -32,19 +35,23 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Pedidos</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Saldos pendientes</a>
+                            </li>
                         </ul>
                     </div>
                 </nav>  
             </div>            
         </header>
             <div class="container">
-                <form>
-                    <div class="row" style = "margin-top: 30px">
-                        <input class="col-10 form-control-lg" type="text" placeholder="Search" aria-label="Search" id="txtBuscar" autofocus>
-                        <button class="col-2 btn btn-success" type="button" data-toggle="modal" data-target="#buscarProdutos"
-                         onclick="listarProductos();">Search</button>
+                <div class="row" id="productos" style = "margin-top: 30px">
+                    <input class="typeahead col-10 form-control-lg " type="text" placeholder="Search" 
+                           aria-label="Search" id="txtBuscar" name="txtBuscar" autocomplete="off" autofocus >
+<!--
+                    <button class="col-2 btn btn-success" type="button" data-toggle="modal" data-target="#buscarProdutos"
+                        onclick="listarProductos();">Search</button>
                     </div>
-                </form>
+-->
                 <div style = "margin-top: 30px">
                     <form action="">
                         <div class="row">
@@ -127,6 +134,7 @@
                 </div>
             </div>
         </div>
+    </div>
     <div class="modal" id="buscarProdutos" tabindex="-1" role="dialog" aria-labelledby="buscarProdutosLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -270,12 +278,10 @@
             </div>
         </div>
     </div>        
-<footer>
-</footer>
-        </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    </body>
+    <footer>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" ></script>
+ </body>
 <html>
             

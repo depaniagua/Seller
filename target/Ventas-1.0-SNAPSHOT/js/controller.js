@@ -1,3 +1,29 @@
+ $(document).ready(function(){
+    var bestPictures = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      prefetch: 'http://localhost:8080/Ventas/resources/service/',
+      remote: {
+        url: 'http://localhost:8080/Ventas/resources/service/%QUERY',
+        wildcard: '%QUERY'
+      }
+    });
+
+    $('#productos .typeahead').typeahead(null, {
+      name: 'descrip_producto',
+      display: 'descrip_producto',
+      source: bestPictures
+    }).bind('typeahead:selected', function(obj, selected, name) {
+        $('#txtCodigo').val(selected.codigo_producto);
+        $('#txtDescripcion').val(selected.descrip_producto);
+        $('#txtValor').val(selected.precio1);
+        $('#txtCantidad').select();
+    });
+});
+
+
+
+
 var totalPagar = 0;
 var numRecord =1;
 var productos = {};
